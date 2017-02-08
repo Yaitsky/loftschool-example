@@ -73,7 +73,7 @@ function returnBadArguments(fn) {
     for (var i = 1; i < args.length; i++) {
         try {
             fn(args[i]);
-        } catch(e) {
+        } catch (e) {
             result.push(args[i]);
         }
     }
