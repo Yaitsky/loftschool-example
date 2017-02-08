@@ -71,7 +71,9 @@ function returnBadArguments(fn) {
     var result = [];
 
     for (var i = 1; i < args.length; i++) {
-        if (!fn(args[i])) {
+        try {
+            fn(args[i]);
+        } catch(e) {
             result.push(args[i]);
         }
     }
