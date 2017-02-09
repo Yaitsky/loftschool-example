@@ -1,5 +1,5 @@
 import assert from 'assert';
-import { isAllTrue, isSomeTrue, returnBadArguments, findError, calculator } from '../src/index';
+import { isAllTrue, isSomeTrue, returnBadArguments, findError, calculator } from '../src/index (hw2)';
 
 describe('ДЗ 2 - работа с исключениями и отладчиком', () => {
     describe('isAllTrue', () => {
