@@ -94,61 +94,81 @@ function upperProps(obj) {
  Задача 8 *:
  Напишите аналог встроенного метода slice для работы с массивами
  */
-function slice(array, from, to) {
-    var result = [],
-        length = array.length;
+function slice(array, from = 0, to = array.length) {
+    var result = [];
 
-    if ((from == undefined) && (to == undefined)) {
-        result = array;
-
-        return result;
+    if (from < 0) {
+        from = from + array.length;
+    }
+    if (from < -array.length) {
+        from = 0;
+    }
+    if (to < 0) {
+        to = to + array.length;
+    } else if (to > array.length) {
+        to = array.length;
     }
 
-    if ((from == 0) && (to == 0)) {
-        return result;
-    }
-
-    if (!to) {
-        if ((from >= 0) && (from < length)) {
-            for (var i = from; i < length; i++) {
-                result.push(array[i]);
-            }
-        } else if ((from < 0) && (-from < length)) {
-            for (i = length + from; i < length; i++) {
-                result.push(array[i]);
-            }
-        } else if (from > length) {
-            return result;
-        } else if (-from > length) {
-            result = array;
-        }
-    } else {
-        if ((from >= 0) && (from < length) && (to >= 0) && (to < length)) {
-            for (i = from; i < to; i++) {
-                result.push(array[i]);
-            }
-        } else if ((from >= 0) && (from < length) && (to > length)) {
-            for (i = from; i < length; i++) {
-                result.push(array[i]);
-            }
-        } else if ((from >= 0) && (from < length) && (-to < length) && (to < 0)) {
-            for (i = from; i < to + length; i++) {
-                result.push(array[i]);
-            }
-        } else if ((from >= 0) && (from < length) && (-to > length)) {
-            return result;
-        } else if ((from < 0) && (-from > length) && (to < 0) && (-to < length)) {
-            for (i = 0; i < to + length; i++) {
-                result.push(array[i]);
-            }
-        } else if ((from < 0) && (-from > length) && (to > 0) && (to < length)) {
-            for (i = 0; i < to; i++) {
-                result.push(array[i]);
-            }
-        }
+    for (from; from < to; from++) {
+        result.push(array[from]);
     }
 
     return result;
+
+    // var result = [],
+    //     length = array.length;
+    //
+    // if ((from == undefined) && (to == undefined)) {
+    //     result = array;
+    //
+    //     return result;
+    // }
+    //
+    // if ((from == 0) && (to == 0)) {
+    //     return result;
+    // }
+    //
+    // if (!to) {
+    //     if ((from >= 0) && (from < length)) {
+    //         for (var i = from; i < length; i++) {
+    //             result.push(array[i]);
+    //         }
+    //     } else if ((from < 0) && (-from < length)) {
+    //         for (i = length + from; i < length; i++) {
+    //             result.push(array[i]);
+    //         }
+    //     } else if (from > length) {
+    //         return result;
+    //     } else if (-from > length) {
+    //         result = array;
+    //     }
+    // } else {
+    //     if ((from >= 0) && (from < length) && (to >= 0) && (to < length)) {
+    //         for (i = from; i < to; i++) {
+    //             result.push(array[i]);
+    //         }
+    //     } else if ((from >= 0) && (from < length) && (to > length)) {
+    //         for (i = from; i < length; i++) {
+    //             result.push(array[i]);
+    //         }
+    //     } else if ((from >= 0) && (from < length) && (-to < length) && (to < 0)) {
+    //         for (i = from; i < to + length; i++) {
+    //             result.push(array[i]);
+    //         }
+    //     } else if ((from >= 0) && (from < length) && (-to > length)) {
+    //         return result;
+    //     } else if ((from < 0) && (-from > length) && (to < 0) && (-to < length)) {
+    //         for (i = 0; i < to + length; i++) {
+    //             result.push(array[i]);
+    //         }
+    //     } else if ((from < 0) && (-from > length) && (to > 0) && (to < length)) {
+    //         for (i = 0; i < to; i++) {
+    //             result.push(array[i]);
+    // //         }
+    // //     }
+    // // }
+    //
+    // return result;
 }
 
 /*
