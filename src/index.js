@@ -105,7 +105,8 @@ function slice(array, from = 0, to = array.length) {
     }
     if (to < 0) {
         to = to + array.length;
-    } else if (to > array.length) {
+    }
+    if (to > array.length) {
         to = array.length;
     }
 
