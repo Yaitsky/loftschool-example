@@ -115,61 +115,6 @@ function slice(array, from = 0, to = array.length) {
     }
 
     return result;
-
-    // var result = [],
-    //     length = array.length;
-    //
-    // if ((from == undefined) && (to == undefined)) {
-    //     result = array;
-    //
-    //     return result;
-    // }
-    //
-    // if ((from == 0) && (to == 0)) {
-    //     return result;
-    // }
-    //
-    // if (!to) {
-    //     if ((from >= 0) && (from < length)) {
-    //         for (var i = from; i < length; i++) {
-    //             result.push(array[i]);
-    //         }
-    //     } else if ((from < 0) && (-from < length)) {
-    //         for (i = length + from; i < length; i++) {
-    //             result.push(array[i]);
-    //         }
-    //     } else if (from > length) {
-    //         return result;
-    //     } else if (-from > length) {
-    //         result = array;
-    //     }
-    // } else {
-    //     if ((from >= 0) && (from < length) && (to >= 0) && (to < length)) {
-    //         for (i = from; i < to; i++) {
-    //             result.push(array[i]);
-    //         }
-    //     } else if ((from >= 0) && (from < length) && (to > length)) {
-    //         for (i = from; i < length; i++) {
-    //             result.push(array[i]);
-    //         }
-    //     } else if ((from >= 0) && (from < length) && (-to < length) && (to < 0)) {
-    //         for (i = from; i < to + length; i++) {
-    //             result.push(array[i]);
-    //         }
-    //     } else if ((from >= 0) && (from < length) && (-to > length)) {
-    //         return result;
-    //     } else if ((from < 0) && (-from > length) && (to < 0) && (-to < length)) {
-    //         for (i = 0; i < to + length; i++) {
-    //             result.push(array[i]);
-    //         }
-    //     } else if ((from < 0) && (-from > length) && (to > 0) && (to < length)) {
-    //         for (i = 0; i < to; i++) {
-    //             result.push(array[i]);
-    // //         }
-    // //     }
-    // // }
-    //
-    // return result;
 }
 
 /*
