@@ -7,7 +7,7 @@
  * @return {Element}
  */
 function createDivWithText(text) {
-    var element = document.createElement("div");
+    var element = document.createElement('div');
 
     element.innerText = text;
 
@@ -21,9 +21,9 @@ function createDivWithText(text) {
  * @return {Element}
  */
 function createAWithHref(hrefValue) {
-    var element = document.createElement("a");
+    var element = document.createElement('a');
 
-    element.setAttribute("href", hrefValue);
+    element.setAttribute('href', hrefValue);
 
     return element;
 }
@@ -58,12 +58,13 @@ function findAllPSiblings(where) {
     var elements = where.children;
     var result = [];
 
-   for (var i = 0; i < elements.length - 1; i++) {
-       var sibling = elements[i].nextElementSibling;
-       if (sibling.tagName == "P") {
-           result.push(elements[i]);
-       }
-   }
+    for (var i = 0; i < elements.length - 1; i++) {
+        var sibling = elements[i].nextElementSibling;
+
+        if (sibling.tagName == 'P') {
+            result.push(elements[i]);
+        }
+    }
 
     return result;
 }
@@ -103,7 +104,7 @@ function deleteTextNodes(where) {
     var elements = where.childNodes;
 
     for (var i = 0; i < elements.length; i++) {
-        if(elements[i].nodeType == 3) {
+        if (elements[i].nodeType == 3) {
             where.removeChild(elements[i]);
         }
     }
@@ -159,10 +160,6 @@ function collectDOMStat(root) {
     var elements = root.childNodes,
         texts;
 
-    for (var i = 0; i < elements.length; i++) {
-
-    }
-
     return {
         tags: {},
         classes: {},
@@ -208,20 +205,18 @@ function observeChildNodes(where, fn) {
             var nodes = [];
 
             if (mutation.addedNodes.length > 0) {
-                type = "insert";
+                type = 'insert';
                 for (var item of mutation.addedNodes) {
                     nodes.push(item);
                 }
-
                 fn({type: type, nodes: nodes});
             }
 
             if (mutation.removedNodes.length > 0) {
-                type = "remove";
-                for (var item of mutation.removedNodes) {
+                type = 'remove';
+                for (item of mutation.removedNodes) {
                     nodes.push(item);
                 }
-
                 fn({type: type, nodes: nodes});
             }
 
