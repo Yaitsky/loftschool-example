@@ -169,34 +169,34 @@ function collectDOMStat(root) {
         var elements = root.childNodes;
 
         for (var i = 0; i < elements.length; i++) {
-            var elemClass = elements[i].classList;
-
-            for (var item in elemClass) {
-                if (item in stats.classes) {
-                    stats.classes[item] = stats.classes[item] + 1;
-                } else {
-                    stats.classes[item] = 1;
-                }
-            }
-
-            var elemTag = elements[i].tagName;
-
-            if (elemTag in stats.tags) {
-                stats.tags[elemTag] = stats.tags[elemTag] + 1;
-            } else {
-                stats.tags[elemTag] =  1;
-            }
 
             if (elements[i].nodeType == 3) {
                 stats.texts = stats.texts + 1;
+            } else {
+                var elemClass = elements[i].classList;
+
+                if (elemClass.length > 0) {
+                    for (var k = 0; k < elemClass.length; k++) {
+                        if (elemClass[k] in stats.classes) {
+                            stats.classes[elemClass[k]] = stats.classes[elemClass[k]] + 1;
+                        } else {
+                            stats.classes[elemClass[k]] = 1;
+                        }
+                    }
+                }
+
+                var elemTag = elements[i].tagName;
+
+                if (elemTag in stats.tags) {
+                    stats.tags[elemTag] = stats.tags[elemTag] + 1;
+                } else {
+                    stats.tags[elemTag] = 1;
+                }
             }
 
-            if (elements[i].childNodes.length == 0) {
-                return;
-            } else {
+            if (elements[i].nodeType == 1) {
                 collectElem(elements[i]);
             }
-
         }
     }
 
