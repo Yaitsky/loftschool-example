@@ -27,7 +27,8 @@ let homeworkContainer = document.querySelector('#homework-container');
 function createDiv() {
     var elem = document.createElement('DIV'),
         randomRadius = Math.floor(100 + Math.random()*100) + 'px',
-        randomColor = `${Math.floor(Math.random()*255)}, ${Math.floor(Math.random()*255)}, ${Math.floor(Math.random()*255)}`,
+        randomColor = `${Math.floor(Math.random()*255)}, ${Math.floor(Math.random()*255)}, 
+                       ${Math.floor(Math.random()*255)}`,
         randomX = Math.floor(Math.random()*1000) + 'px',
         randomY = Math.floor(Math.random()*800) + 'px';
 
