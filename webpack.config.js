@@ -14,8 +14,8 @@ loaders.push({
 
 module.exports = {
     entry: {
-        main: './src/_index.js',
-        dnd: './src/dnd.js'
+        main: './src/index.js',
+        towns: './src/towns.js'
     },
     output: {
         filename: '[chunkhash].js',
@@ -40,9 +40,9 @@ module.exports = {
         }),
         new HtmlPlugin({
             title: 'Div Drag And Drop',
-            template: 'dnd.hbs',
-            filename: 'dnd.html',
-            chunks: ['dnd']
+            template: 'towns.hbs',
+            filename: 'towns.html',
+            chunks: ['towns']
         }),
         new CleanWebpackPlugin(['dist'])
     ]
