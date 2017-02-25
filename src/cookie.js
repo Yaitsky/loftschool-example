@@ -39,6 +39,7 @@ let addValueInput = homeworkContainer.querySelector('#add-value-input');
 let addButton = homeworkContainer.querySelector('#add-button');
 let listTable = homeworkContainer.querySelector('#list-table tbody');
 let table = homeworkContainer.querySelector('#list-table');
+var cookiesFilteredArray = getCookies();
 
 /**
  * Функция должна проверять встречается ли подстрока chunk в строке full
@@ -54,7 +55,7 @@ let table = homeworkContainer.querySelector('#list-table');
  * @return {boolean}
  */
 
-updateAndShowCookies();
+updateAndShowAllCookies();
 
 function isMatching(full, chunk) {
     var string = full.toLowerCase(),
@@ -96,19 +97,30 @@ function createCookieTr(name, value) {
     rowElem.appendChild(tdButton);
 
     tdName.innerText = name;
+    tdName.classList.add('tdName');
     tdValue.innerText = value;
+    tdValue.classList.add('tdValue');
     tdButton.appendChild(deleteButton);
-    deleteButton.setAttribute('id', 'deleteButton');
     deleteButton.innerText = 'Удалить';
 
     deleteButton.addEventListener('click', function () {
         deleteCookie(name);
-        updateAndShowCookies();
+        updateAndShowAllCookies();
     })
 }
 
-function updateAndShowCookies() {
-    var cookiesArray = document.cookie
+function deleteCookieTr(name) {
+    var rows = listTable.children;
+
+    for (var item of rows) {
+        if (item.cells[0].innerText == name) {
+            item.remove();
+        }
+    }
+}
+
+function getCookies() {
+    var cookies = document.cookie
         .split('; ')
         .filter(Boolean)
         .map(cookie => cookie.match(/^([^=]+)=(.+)/))
@@ -118,10 +130,24 @@ function updateAndShowCookies() {
             return obj;
         }, {});
 
+    return cookies;
+}
+
+function updateAndShowFilteredCookies(array) {
     listTable.innerHTML = '';
 
-    for (var prop in cookiesArray) {
-        createCookieTr(prop, cookiesArray[prop]);
+    for (var prop in array) {
+        createCookieTr(prop, array[prop]);
+    }
+}
+
+function updateAndShowAllCookies() {
+    var allCookiesArray = getCookies();
+
+    listTable.innerHTML = '';
+
+    for (var prop in allCookiesArray) {
+        createCookieTr(prop, allCookiesArray[prop]);
     }
 }
 
@@ -129,21 +155,45 @@ filterNameInput.addEventListener('keyup', function() {
     var value = filterNameInput.value.trim();
 
     for (var k = 1; k < table.rows.length; k++) {
-        if (isMatching(table.rows[k].cells[0].innerText, value)
-            || isMatching(table.rows[k].cells[1].innerText, value)) {
-            table.rows[k].style.display = '';
-        } else {
-            table.rows[k].style.display = 'none';
+        if (!(isMatching(table.rows[k].cells[0].innerText, value)
+            || isMatching(table.rows[k].cells[1].innerText, value))) {
+            table.rows[k].remove();
+            k--;
         }
+    }
+
+    if (value == '') {
+        updateAndShowAllCookies()
     }
 });
 
 addButton.addEventListener('click', () => {
     var cookieName = addNameInput.value,
-        cookieValue = addValueInput.value;
+        cookieValue = addValueInput.value,
+        filterValue = filterNameInput.value.trim(),
+        cookiesFilteredArray = getCookies();
 
-    createCookie(cookieName, cookieValue);
-    updateAndShowCookies();
+    for (var prop in cookiesFilteredArray) {
+        if (!(isMatching(prop, filterValue) || isMatching(cookiesFilteredArray[prop], filterValue))) {
+            delete cookiesFilteredArray[prop];
+        }
+    }
+
+    if (filterValue == '') {
+        createCookie(cookieName, cookieValue);
+        updateAndShowAllCookies();
+    } else {
+        if (cookiesFilteredArray.hasOwnProperty(cookieName)
+            && isMatching(cookiesFilteredArray[cookieName], filterValue)) {
+            createCookie(cookieName, cookieValue);
+            deleteCookieTr(cookieName);
+        } else {
+            createCookie(cookieName, cookieValue);
+            cookiesFilteredArray[cookieName] = cookieValue;
+            console.log(cookiesFilteredArray);
+            updateAndShowFilteredCookies(cookiesFilteredArray);
+        }
+    }
 
     addNameInput.value = '';
     addValueInput.value = '';
