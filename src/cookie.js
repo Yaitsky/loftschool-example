@@ -200,7 +200,9 @@ addButton.addEventListener('click', () => {
             updateAndShowFilteredCookies(cookiesFilteredArray);
         }
     }
+    setTimeout(function () {
+        addNameInput.value = '';
+        addValueInput.value = '';
+    }, 100);
 
-    addNameInput.value = '';
-    addValueInput.value = '';
 });
