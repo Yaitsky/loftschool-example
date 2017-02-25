@@ -184,7 +184,7 @@ addButton.addEventListener('click', () => {
         updateAndShowAllCookies();
     } else {
         if (cookiesFilteredArray.hasOwnProperty(cookieName)
-            && isMatching(cookiesFilteredArray[cookieName], filterValue)) {
+            && !isMatching(cookiesFilteredArray[cookieName], filterValue)) {
             createCookie(cookieName, cookieValue);
             deleteCookieTr(cookieName);
         } else {
