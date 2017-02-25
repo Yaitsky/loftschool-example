@@ -154,18 +154,19 @@ function updateAndShowAllCookies() {
 }
 
 filterNameInput.addEventListener('keyup', function() {
-    var value = filterNameInput.value.trim();
+    var value = filterNameInput.value.trim(),
+        cookiesFilteredArray = getCookies();
 
-    for (var k = 1; k < table.rows.length; k++) {
-        if (!(isMatching(table.rows[k].cells[0].innerText, value)
-            || isMatching(table.rows[k].cells[1].innerText, value))) {
-            table.rows[k].remove();
-            k--;
+    for (var prop in cookiesFilteredArray) {
+        if (!(isMatching(prop, value) || isMatching(cookiesFilteredArray[prop], value))) {
+            delete cookiesFilteredArray[prop];
         }
     }
 
     if (value == '') {
         updateAndShowAllCookies()
+    } else {
+        updateAndShowFilteredCookies(cookiesFilteredArray);
     }
 });
 
