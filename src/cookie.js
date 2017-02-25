@@ -69,7 +69,9 @@ function isMatching(full, chunk) {
 }
 
 function createCookie(name, value) {
-    document.cookie = name+'='+value;
+    var date = new Date;
+    date.setDate(date.getDate() + 1);
+    document.cookie = name+'='+value+'; expires='+date;
 }
 
 function deleteCookie(name) {
