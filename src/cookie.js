@@ -38,8 +38,6 @@ let addNameInput = homeworkContainer.querySelector('#add-name-input');
 let addValueInput = homeworkContainer.querySelector('#add-value-input');
 let addButton = homeworkContainer.querySelector('#add-button');
 let listTable = homeworkContainer.querySelector('#list-table tbody');
-let table = homeworkContainer.querySelector('#list-table');
-var cookiesFilteredArray = getCookies();
 
 /**
  * Функция должна проверять встречается ли подстрока chunk в строке full
@@ -70,6 +68,7 @@ function isMatching(full, chunk) {
 
 function createCookie(name, value) {
     var date = new Date;
+
     date.setDate(date.getDate() + 1);
     document.cookie = name+'='+value+'; expires='+date;
 }
@@ -188,21 +187,21 @@ addButton.addEventListener('click', () => {
     } else if (!(isMatching(cookieName, filterValue)
         || (isMatching(cookieValue, filterValue)))) {
         createCookie(cookieName, cookieValue);
+        deleteCookieTr(cookieName);
     } else {
-        if (cookiesFilteredArray.hasOwnProperty(cookieName)
+        if ((cookieName in cookiesFilteredArray)
             && !isMatching(cookiesFilteredArray[cookieName], filterValue)) {
             createCookie(cookieName, cookieValue);
             deleteCookieTr(cookieName);
         } else {
             createCookie(cookieName, cookieValue);
             cookiesFilteredArray[cookieName] = cookieValue;
-            console.log(cookiesFilteredArray);
             updateAndShowFilteredCookies(cookiesFilteredArray);
         }
     }
+
     setTimeout(function () {
         addNameInput.value = '';
         addValueInput.value = '';
     }, 100);
-
 });
